@@ -1,0 +1,52 @@
+<script>
+    const countries = ['argentina', 'brazil', 'colombia', 'chile', 'germany', 'india', 'japan', 'mexico', 'united-kingdom', 'united-states'];
+    const codes = ['argentina', 'brazil', 'colombia', 'chile', 'germany', 'india', 'japan', 'mexico', 'unitedkin', 'unitedsta'];
+    
+    function getDates() {
+      const hoje = new Date();
+      const umAnoAtras = new Date(hoje.setMonth(hoje.getMonth() - 13)); // 1 year and 1 month ago
+      const mesAtual = new Date();
+      
+      const d1 = `${umAnoAtras.getFullYear()}-${(umAnoAtras.getMonth() + 1).toString().padStart(2, '0')}-01`;
+      const d2 = `${mesAtual.getFullYear()}-${(mesAtual.getMonth() + 1).toString().padStart(2, '0')}-01`;
+      const df1 = `${umAnoAtras.getFullYear()}${(umAnoAtras.getMonth() + 1).toString().padStart(2, '0')}01`;
+      const df2 = `${mesAtual.getFullYear()}${(mesAtual.getMonth() + 1).toString().padStart(2, '0')}01`;
+    
+      return { d1, d2, df1, df2};
+    }
+    
+    function generateIframeTags() {
+        const { d1, d2, df1, df2 } = getDates();
+        const container = document.getElementById('iframe-container');
+        container.style.display = 'flex';
+        container.style.flexWrap = 'wrap';
+
+        countries.forEach((country, index) => {
+            // Country title
+            const titulo = document.createElement('h3');
+            titulo.innerText = country.charAt(0).toUpperCase() + country.slice(1);  // Capitalize first character
+            titulo.style.marginLeft = "5px";
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://tradingeconomics.com/embed/?s=${codes[index]}infratmom&v=${df1}V${df2}&h=300&w=600&ref=/${country}/inflation-rate-mom&type=column&d1=${d1}&d2=${d2}`;
+            iframe.height = '300';
+            iframe.width = '600';
+            iframe.frameBorder = '0';
+            iframe.scrolling = 'no';
+            
+            // Add title and iframe container
+            const iframeContainer = document.createElement('div');
+            iframeContainer.style.width = '600px';
+            iframeContainer.style.border = 'groove';
+            iframeContainer.appendChild(titulo);
+            iframeContainer.appendChild(iframe);
+            
+            container.appendChild(iframeContainer);
+        });
+    }
+    
+    window.onload = function() {
+        generateIframeTags();
+    }
+    
+</script>
+<div id="iframe-container"></div>
