@@ -4,7 +4,7 @@
     
     function getDates() {
       const hoje = new Date();
-      const umAnoAtras = new Date(hoje.setMonth(hoje.getMonth() - 13)); // 1 year and 1 month ago
+      const umAnoAtras = new Date(hoje.setMonth(hoje.getMonth() - 25));
       const mesAtual = new Date();
       
       const d1 = `${umAnoAtras.getFullYear()}-${(umAnoAtras.getMonth() + 1).toString().padStart(2, '0')}-01`;
